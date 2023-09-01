@@ -8,6 +8,21 @@ This feature not only displays the current user's data but also provides a seaml
 
 ## Installation
 
+1. Install using composer:
 ```sh
 composer require dedecube/laravel-nova-profile
 ```
+
+2. Register tool in NovaServiceProvider:
+
+```php
+public function tools()
+{
+    return [
+        // ...
+        new \Dedecube\Profile\Profile(),
+    ];
+}
+```
+
+1. Visit your nova at /profile.
