@@ -1,13 +1,13 @@
 <?php
 
-namespace Dedecube\Profile\Contracts;
+namespace Dedecube\Profile\Services;
 
+use Dedecube\Profile\Contracts\PasswordUpdaterInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
 class PasswordUpdater implements PasswordUpdaterInterface
 {
-
     protected Model $user;
 
     public function __construct()
