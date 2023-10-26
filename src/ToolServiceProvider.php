@@ -12,7 +12,6 @@ use Laravel\Nova\Nova;
 use Dedecube\Profile\Http\Middleware\Authorize;
 use Dedecube\Profile\Http\Requests\PasswordUpdateRequest;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
 class ToolServiceProvider extends ServiceProvider
@@ -24,6 +23,10 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__ . '/../config/nova-profile.php' => config_path('nova-profile.php'),
+        ]);
+
         Validator::extend('hash_match', function ($attribute, $value, $parameters, $validator) {
             $hashedCodeFromDb = $parameters[0];
 
@@ -51,11 +54,16 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Nova::router(['nova', Authenticate::class, Authorize::class], 'profile')
-            ->group(__DIR__.'/../routes/inertia.php');
+            ->group(__DIR__ . '/../routes/inertia.php');
 
         Route::middleware(['nova', Authorize::class])
             ->prefix('nova-vendor/profile')
-            ->group(__DIR__.'/../routes/api.php');
+            ->group(__DIR__ . '/../routes/api.php');
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/nova-profile.php',
+            'nova-profile'
+        );
     }
 
     /**
