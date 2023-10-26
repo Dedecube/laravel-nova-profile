@@ -40,6 +40,6 @@ class UserDetailRequest extends ResourceDetailRequest
      */
     public function resource()
     {
-        return \App\Nova\User::class;
+        return config('nova-profile.user_nova_resource');
     }
 }

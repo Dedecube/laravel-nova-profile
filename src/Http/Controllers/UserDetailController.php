@@ -15,7 +15,7 @@ class UserDetailController
         $user = auth()->user();
 
         /** @var \Laravel\Nova\Resource */
-        $userResource = 'App\Nova\User';
+        $userResource = config('nova-profile.user_nova_resource');
 
         return [
             'fields' => $userResource::make($user)->detailFields($request),
